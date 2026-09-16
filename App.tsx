@@ -1,24 +1,31 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import CoffeeCard from './components/CoffeeCard';
 
 export default function App() {
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handlerOrder = ()=>{
+    if (name.trim() === ''){
+      setMessage('Por favor, Informe seu nome!')
+    }else{
+      setMessage(`Olá ${name}, Seu pedido foi recebido!!`)
+    }
+  };
+  
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior='padding'
       keyboardVerticalOffset={30}>
-      <ScrollView style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.headerTitle}>Cafe do Codigo</Text>
-            <Text style={styles.headerSubtitle}>Seu cafe, uma linha por vez</Text>
-          </View>
 
-          <View style={styles.avatarPlaceholder}>
-            <Ionicons name="person" size={20} color="#2f2d2c" ></Ionicons>
-          </View>
-        </View>
+      <ScrollView>
+        {/* Header */}
+        <Header />
         {/* Header */}
 
         {/* Conteudo */}
@@ -39,29 +46,31 @@ export default function App() {
             <Text style={styles.sectionTitle}>Nosso Cardapio</Text>
 
             <View style={styles.menuSection}>
-              <View style={styles.menuCard}>
-                <Text style={styles.menuTitleCard}>Espresso</Text>
-                <Text style={styles.menuSubtitleCard}>Puro e forte</Text>
-                <Text style={styles.menuPriceCard}>R$ 7,00</Text>
-              </View>
-
-              <View style={styles.menuCard}>
-                <Text style={styles.menuTitleCard}>Capuccino</Text>
-                <Text style={styles.menuSubtitleCard}>Classico com espuma</Text>
-                <Text style={styles.menuPriceCard}>R$ 12,90</Text>
-              </View>
-
-              <View style={styles.menuCard}>
-                <Text style={styles.menuTitleCard}>Latte</Text>
-                <Text style={styles.menuSubtitleCard}>Leite cremoso</Text>
-                <Text style={styles.menuPriceCard}>R$ 11,50</Text>
-              </View>
-
-              <View style={styles.menuCard}>
-                <Text style={styles.menuTitleCard}>Mocha</Text>
-                <Text style={styles.menuSubtitleCard}>Toque de chocolate</Text>
-                <Text style={styles.menuPriceCard}>R$ 13,50</Text>
-              </View>
+              <CoffeeCard 
+                name = 'Espresso'
+                description='Puro e Forte'
+                price='7,00'
+              />
+              <CoffeeCard 
+                name = 'Cappucino'
+                description='Puro e Forte'
+                price='7,00'
+              />
+              <CoffeeCard 
+                name = 'Espresso'
+                description='Puro e Forte'
+                price='7,00'
+              />
+              <CoffeeCard 
+                name = 'Espresso'
+                description='Puro e Forte'
+                price='7,00'
+              />
+              <CoffeeCard 
+                name = 'Espresso'
+                description='Puro e Forte'
+                price='7,00'
+              />
             </View>
 
             <View style={styles.orderSection}>
@@ -70,18 +79,26 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder='Digite seu nome:'
+                value={name}
+                onChangeText = {setName}
               ></TextInput>
 
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={handlerOrder}>
                 <Text style={styles.buttonText}>Fazer meu pedido</Text>
               </TouchableOpacity>
 
-
+              {message !== '' && (
+                <Text style={styles.messageText}>{message}</Text>
+              )}
             </View>
-
           </View>
         </View>
         {/* Conteudo */}
+
+        {/* Footer */}
+        <Footer/>
+        {/* Footer */}
+
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -94,37 +111,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F9F9',
   },
 
-  header: {
-    width: '100%',
-    padding: 60,
-    paddingHorizontal: 24,
-    paddingTop: 60,
-    paddingBottom: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
 
-  headerTitle: {
-    fontSize: 23,
-    fontWeight: "800",
-    color: "#2f2d2c"
-  },
 
-  headerSubtitle: {
-    fontSize: 14,
-    color: "#9b9b9b",
-    marginTop: 4,
-  },
 
-  avatarPlaceholder: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#f0f0f0",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 
   content: {
     paddingHorizontal: 24,
@@ -210,25 +199,6 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
 
-  menuTitleCard: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: "#2f2d2c"
-  },
-
-  menuSubtitleCard: {
-    fontSize: 12,
-    color: "#9b9b9b",
-    marginTop: 4
-  },
-
-  menuPriceCard: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: "#c67c4e",
-    marginTop: 12
-  },
-
   orderSection: {
     backgroundColor: "#ffffffff",
     padding: 24,
@@ -276,5 +246,17 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#ffffffff"
   },
+
+
+
+  messageText: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#c67c4b",
+    textAlign: "center",
+    marginTop: 20
+  }
+  
+
 
 });
