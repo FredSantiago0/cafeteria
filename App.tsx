@@ -66,11 +66,6 @@ export default function App() {
                 description='Puro e Forte'
                 price='7,00'
               />
-              <CoffeeCard 
-                name = 'Espresso'
-                description='Puro e Forte'
-                price='7,00'
-              />
             </View>
 
             <View style={styles.orderSection}>
@@ -148,9 +143,9 @@ const styles = StyleSheet.create({
   },
 
   imageStyle: {
-    borderRadius: 16,
+   borderRadius: 16,
     width: "100%",
-    height: 180,
+    height: 180, 
     marginBottom: 16
   },
 
